@@ -7,6 +7,19 @@
     <img src="{{ asset($blog->image) }}" alt="" class="card-img-top">
     <br><br>
     <h3>{{ $blog->title }}</h3>
+    <br>
+    @if (count($blog->tags))
+        <ul>
+            @foreach ($blog->tags as $tag)
+               <li>
+                   <a href="#">
+                       {{ $tag->tagname }}
+                   </a>
+               </li>
+                
+            @endforeach
+        </ul>    
+    @endif
     <hr>
     <p class="lead">{{ $blog->content }}</p>
 

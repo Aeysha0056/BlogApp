@@ -19,7 +19,7 @@
     <div class="form-group">
 		<label>Tags:</label>
 		<br/>
-		<input data-role="tagsinput" type="text" name="tags" class="form-control {{$errors->has('tags')? 'is-invalid': '' }}">
+		<input data-role="tagsinput" type="text" name="tags" class="form-control {{$errors->has('tags')? 'is-invalid': '' }}" value="{{ $blog->tags->pluck('tagname')}}">
     </div>	
     
     <div class="form group">

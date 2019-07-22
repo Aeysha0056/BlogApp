@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Blog;
+use App\Tag;
 use Storage;
 
 class BlogsController extends Controller
@@ -29,17 +30,15 @@ class BlogsController extends Controller
 
     public function store (Request $request) {
         
-        $attributes = $this->validateBlog() /*request()->validate([
-            'title' => ['required','min:3'],
-            'content' => ['required','min:3']
-        ])*/;
-
+        $attributes = $this->validateBlog();
         $url = Storage::url(Storage::putFile('public', $request->file('images') ));
         $attributes['image'] = $url;
         $attributes['owner_id'] = auth()->id();
 
-        Blog::create($attributes);
-
+        $blog = Blog::create($attributes);
+        $tagIds = $this->addTags($request);
+        $blog->tags()->sync($tagIds);
+        //$blog->tags()->sync($request->input('tags'));
         return redirect('/blogs');
 
     }
@@ -73,6 +72,9 @@ class BlogsController extends Controller
         $attributes['image'] = $url;
 
         $blog->update($this->validateBlog());
+        $tagIds = $this->addTags($request);
+        $blog->tags()->sync($tagIds);
+        //$blog->tags()->sync($request->input('tags'));
 
         return redirect()->route('blog_path', compact('blog'));
     }
@@ -93,6 +95,21 @@ class BlogsController extends Controller
             'title' => ['required','min:3'],
             'content' => ['required','min:3']
         ]);
+    }
+    public function addTags (Request $request) {
+        //Adding tags to blog, Sync() the easy way
+        $tagNames = explode(',',$request->get('tags'));
+        $tagIds = [];
+        foreach($tagNames as $tagName)
+        {
+            $tag = Tag::firstOrCreate(['tagname'=>$tagName]);
+            if($tag)
+            {
+              $tagIds[] = $tag->id;
+            }
+        }
+        return $tagIds;
+        //$blog->tags()->sync($tagIds);
     }
     
 }
