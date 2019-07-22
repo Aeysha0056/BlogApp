@@ -29,9 +29,8 @@
                    
                 </div>
                  <div class="card-footer">
-                        <a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a>
+                 <a href="#" class="card-link"><i class="fa fa-gittip"></i> {{views($blog)->count()}} Views</a>
                         <a href="#" class="card-link"><i class="fa fa-comment"></i>{{$blog->comments->count()}} Comments</a>
-                        <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a>
                     </div>
             </div>
         </div>

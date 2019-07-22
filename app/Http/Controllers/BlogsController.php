@@ -46,8 +46,9 @@ class BlogsController extends Controller
     public function show ($id) {
 
         $blog = Blog::find($id);
+        views($blog)->record();
         //abort_if($blog->owner_id !== auth()->id(), 403);
-        
+        error_log(views($blog)->count());
         return view('blogs.show',compact('blog'));
 
     }
