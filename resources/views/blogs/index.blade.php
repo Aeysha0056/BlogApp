@@ -23,14 +23,14 @@
                     <p class="blog-post-meta">
                         posted 
                         {{ $blog->created_at->toFormattedDateString()}}
-                        {{ $blog->created_at->diffForHumans()}}
+                        by <a href="#">{{ $blog->user->name }} </a>
                     </p>
                     <a href="/blogs/{{$blog->id}}" class="btn btn-outline-primary">View Post</a>
                    
                 </div>
                  <div class="card-footer">
                         <a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a>
-                        <a href="#" class="card-link"><i class="fa fa-comment"></i> Comment</a>
+                        <a href="#" class="card-link"><i class="fa fa-comment"></i>{{$blog->comments->count()}} Comments</a>
                         <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a>
                     </div>
             </div>

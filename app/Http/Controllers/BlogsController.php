@@ -16,7 +16,7 @@ class BlogsController extends Controller
     }
     public function index () {
 
-        $blogs = Blog::latest()->paginate(5);
+        $blogs = Blog::latest()->paginate(6);
         //$blogs = Blog::where('owner_id', auth()->id())->paginate(5);
         //$blogs = auth()->user()->blogs;
 

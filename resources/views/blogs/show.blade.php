@@ -45,6 +45,7 @@
 <br>
 <!-- Display Comments -->
     <p>Comments: </p>
+    <p>{{$blog->comments->count()}} comments</p>
     @if($blog->comments->count())
         <div class="comments">
             <ul class="list-group">
@@ -52,10 +53,11 @@
                     <li class="list-group-item">
                         <strong>
                             {{ $comment->created_at->diffForHumans()}}
+                            by {{ $comment->user->name }}
                         </strong>
+                        <br>
                         {{ $comment->comment }}
 
-                        <p>{{ $comment->owner_id }}</p>
                     </li>
                 @endforeach
             </ul>
