@@ -1,8 +1,7 @@
 @extends('layouts.master')
 @section('content')
-    <!--<h1> Hello this is index.blade.php</h1>-->
 
-    <div class="row">
+    <div class="row justify-content-center">
             @foreach ($blogs as $blog) 
 
         <div class="col-md-6">
@@ -29,7 +28,7 @@
                    
                 </div>
                  <div class="card-footer">
-                 <a href="#" class="card-link"><i class="fa fa-gittip"></i> {{views($blog)->count()}} Views</a>
+                 <a href="#" class="card-link"><i class="fa fa-gittip"></i> {{views($blog)->unique()->count()}} Views</a>
                         <a href="#" class="card-link"><i class="fa fa-comment"></i>{{$blog->comments->count()}} Comments</a>
                     </div>
             </div>

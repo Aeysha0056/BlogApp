@@ -9,7 +9,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Blog App</a>
+        <a class="navbar-brand" href="/blogs">Blog App</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -17,10 +17,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-md-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="/blogs">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="/blogs">Blogs <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/blogs/create">Create Blog Post</a>
+                <a class="nav-link" href="/home">My Blog</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/blogs/create">New Post</a>
             </li>
             <!--<li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

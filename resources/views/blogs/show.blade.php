@@ -9,6 +9,7 @@
     <h3>{{ $blog->title }}</h3>
     <br>
     @if (count($blog->tags))
+    <strong>Tags: </strong>
         <ul>
             @foreach ($blog->tags as $tag)
                <li>
@@ -22,29 +23,35 @@
     @endif
     <hr>
     <p class="lead">{{ $blog->content }}</p>
-
-    <a href="/blogs/{{ $blog->id }}/edit" class="btn btn-outline-info">Edit</a>
-    <a href="/blogs" class="btn btn-outline-secondary">Back</a>
-    <!--<a href="/blogs/" class="btn btn-outline-danger">Delete</a>-->
     </div>
     <hr>  
 </div>
+<div class="row">
+    <div class="col-md-1">
+        @if ($blog->owner_id === auth()->id())
+            <!-- Edit Post -->
+            <a href="/blogs/{{ $blog->id }}/edit" class="btn btn-outline-info">Edit</a> 
+            </div> 
+            <!-- Delete Form -->
+            <div class="col-md-1">
+                <form method="POST" action="/blogs/{{ $blog->id }}">
+                     @method('DELETE')
+                     @csrf
+            
+                    <div class="field">
+            
+                    <div class="control">
+                        <button type="submit" class="btn btn-outline-danger">Delete</button>
+                    </div>
+                    </div> 
+                </form>
+                <br>
+            </div>  
+        @endif
+</div>
 
-<!-- Delete Form -->
-<form method="POST" action="/blogs/{{ $blog->id }}">
-    @method('DELETE')
-    @csrf
-
-   <div class="field">
-
-     <div class="control">
-         <button type="submit" class="btn btn-outline-danger">Delete</button>
-     </div>
-    </div> 
-</form>
-<br>
 <!-- Display Comments -->
-    <p>Comments: </p>
+    <strong>Comments: </strong>
     <p>{{$blog->comments->count()}} comments</p>
     @if($blog->comments->count())
         <div class="comments">
