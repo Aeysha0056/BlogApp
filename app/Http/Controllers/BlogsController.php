@@ -16,7 +16,7 @@ class BlogsController extends Controller
     }
     public function index () {
 
-        $blogs = Blog::latest()->paginate(6);
+        $blogs = Blog::latest()->paginate(5);
         //$blogs = Blog::where('owner_id', auth()->id())->paginate(5);
         //$blogs = auth()->user()->blogs;
 
@@ -67,12 +67,10 @@ class BlogsController extends Controller
         $blog = Blog::find($id);
         abort_if($blog->owner_id !== auth()->id(), 403);
 
-        //$attributes = request(['title', 'content']);
-
         $url = Storage::url(Storage::putFile('public', $request->file('images') ));
         $attributes['image'] = $url;
-
-        $blog->update($this->validateBlog());
+        $attributes = $this->validateBlog();
+        $blog->update( $attributes);
         $tagIds = $this->addTags($request);
         $blog->tags()->sync($tagIds);
         //$blog->tags()->sync($request->input('tags'));
@@ -98,7 +96,7 @@ class BlogsController extends Controller
         ]);
     }
     public function addTags (Request $request) {
-        //Adding tags to blog, Sync() the easy way
+        //Adding tags to blog
         $tagNames = explode(',',$request->get('tags'));
         $tagIds = [];
         foreach($tagNames as $tagName)
@@ -110,7 +108,6 @@ class BlogsController extends Controller
             }
         }
         return $tagIds;
-        //$blog->tags()->sync($tagIds);
     }
     
 }

@@ -2,14 +2,17 @@
 
 @section('content')
     
-<div class="row">
+<div class="row justify-content-center">
     <div class="col-md-12">
-    <img src="{{ asset($blog->image) }}" alt="" class="card-img-top">
+    <img src="{{ asset($blog->image) }}" alt="" width="500" height="500" class="card-img-top">
     <br><br>
-    <h3>{{ $blog->title }}</h3>
+    <h3 style = "color: Dodgerblue">{{ $blog->title }}</h3>
     <br>
     @if (count($blog->tags))
-    <strong>Tags: </strong>
+    <span style = "color: Dodgerblue">
+        <i class="fa fa-tags"></i>
+    </span>
+    <strong style = "color: Dodgerblue" >Tags: </strong>
         <ul>
             @foreach ($blog->tags as $tag)
                <li>
@@ -26,11 +29,11 @@
     </div>
     <hr>  
 </div>
-<div class="row">
+@if ($blog->owner_id === auth()->id())
+<div class="row justify-content-end">
     <div class="col-md-1">
-        @if ($blog->owner_id === auth()->id())
             <!-- Edit Post -->
-            <a href="/blogs/{{ $blog->id }}/edit" class="btn btn-outline-info">Edit</a> 
+            <a href="/blogs/{{ $blog->id }}/edit" class="btn btn-outline-info"><i class="fa fa-pen"></i></a> 
             </div> 
             <!-- Delete Form -->
             <div class="col-md-1">
@@ -41,24 +44,27 @@
                     <div class="field">
             
                     <div class="control">
-                        <button type="submit" class="btn btn-outline-danger">Delete</button>
+                        <button type="submit" class="btn btn-outline-danger"><i class="fa fa-trash"></i></button>
                     </div>
                     </div> 
                 </form>
                 <br>
             </div>  
-        @endif
-</div>
+    </div>
+@endif
 
 <!-- Display Comments -->
-    <strong>Comments: </strong>
+<span style = "color: Dodgerblue">
+        <i class="fa fa-comment"></i>
+    </span>
+    <strong style = "color: Dodgerblue">Comments: </strong>
     <p>{{$blog->comments->count()}} comments</p>
     @if($blog->comments->count())
         <div class="comments">
             <ul class="list-group">
                 @foreach ($blog->comments as $comment)
                     <li class="list-group-item">
-                        <strong>
+                        <strong style = "font-size: 10; color:grey">
                             {{ $comment->created_at->diffForHumans()}}
                             by {{ $comment->user->name }}
                         </strong>
